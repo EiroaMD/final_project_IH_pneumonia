@@ -1,1 +1,3 @@
-# final_project_IH_pneumonia
+# Pneumonia.
+## Dani Eiroa
+## Final Project | IH BCN Data Analytics PT 2019
