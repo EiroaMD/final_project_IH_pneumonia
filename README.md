@@ -1,6 +1,7 @@
 # :hospital: Pneumonia.
-Dani Eiroa
+
 ```diff
+- Dani Eiroa
 - Final Project | IH BCN Data Analytics PT 2019
 ```
 
