@@ -80,7 +80,7 @@ Analysis of the value counts of the different categorical variables was done. Sp
 ------------------ IMAGE  --------------------------
 
 <p align="center">
-  <img width="600" height="300" src="https://drive.google.com/open?id=1vXm_AtpwSNd-zpmbtTiCnTg_XI0NmcyQ">
+  <img width="800" height="400" src="https://drive.google.com/uc?export=view&id=1vXm_AtpwSNd-zpmbtTiCnTg_XI0NmcyQ">
 </p>
 
 Age was also plotted by grouping subjects depending on the target variable. 
