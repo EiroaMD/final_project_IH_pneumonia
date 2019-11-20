@@ -77,16 +77,19 @@ An Exploratory Data Analysis was executed. Overall, data was clean and tidy. The
 
 Analysis of the value counts of the different categorical variables was done. Special attention was given to the possible target variables, the binary (target) and the ternary (class). There are two possible classifications of the X-Rays: normal|pneumonia and normal|not-normal-not-pneumonia|pneumonia. The image below shows that any of the two possible classifications yields unbalanced data, which was a pain point during the whole process.
 
------------------- IMAGE  --------------------------
-
 <p align="center">
   <img width="800" height="400" src="https://drive.google.com/uc?export=view&id=1vXm_AtpwSNd-zpmbtTiCnTg_XI0NmcyQ">
 </p>
 
 Age was also plotted by grouping subjects depending on the target variable. 
 
+<p align="center">
+  <img width="500" height="250" src="https://drive.google.com/uc?export=view&id=1e_Q0hejM5nRRxh7hpMVopp16jHhZsR5C">
+</p>
 
------------------- IMAGE  --------------------------
+<p align="center">
+  <img width="500" height="250" src="https://drive.google.com/uc?export=view&id=1o7XznBfngIvAnYhIKGXkwPdGhgf7wqnV">
+</p>
 
 
 Statistical analysis was carried out to check if the difference of mean age was significant:
@@ -113,11 +116,15 @@ Initially, the three-category approach was decided, because the unbalance was no
 
 ### **Model Training and Evaluation**
 
-- After some research on the matter, we came to the conclusion that the best models for image classification tasks are [Convolutional Neural Networks (CNN)]([https://towardsdatascience.com/convolutional-neural-network-17fb77e76c05](https://towardsdatascience.com/convolutional-neural-network-17fb77e76c05))
-- Briefly, a CNN consists on an input, layers of filters that apply mathematical operations to the pixel values of the image (convolution and pooling) and  a cluster of fully connected or dense layers on the end of the network. This layers bound together produce an output, that in our cases is a category: normal or pneumonia.
-- Before feeding the images to the CNN, they had to be preprocessed using the `ImageDataGenerator` function from keras.
-- Initially a CNN was created from scratch following the scheme below:
-- IMAGEN DE MI CNN
+After some research on the matter, we came to the conclusion that the best models for image classification tasks are [Convolutional Neural Networks (CNN)](https://towardsdatascience.com/convolutional-neural-network-17fb77e76c05)
+
+Briefly, a CNN consists on an input, layers of filters that apply mathematical operations to the pixel values of the image (convolution and pooling) and  a cluster of fully connected or dense layers on the end of the network. This layers bound together produce an output, that in our cases is a category: normal or pneumonia.
+
+Before feeding the images to the CNN, they had to be preprocessed using the `ImageDataGenerator` function from keras.
+Initially a CNN was created from scratch following the scheme below:
+
+---------------- IMAGE  ------------------------------
+
 - Summary of the most important parameters used:
     - Activation functions:
         - ReLU.
@@ -127,10 +134,15 @@ Initially, the three-category approach was decided, because the unbalance was no
     - Loss function: binary cross-entropy.
     - Optimizer: RMSProp
     - Learning rate: 0.001
-- A lot of parameter hypertuning was performed throughout the process, although the most relevant to the final results were the addition of dropout layers, which dramatically decreased overfitting and the selection of the [softmax]([https://stats.stackexchange.com/a/410112](https://stats.stackexchange.com/a/410112)) function on the output layer (the initial output function chosen was the sigmoid).
-- Although satisfying results are yielded by this model [(around 90% accuracy and F1-score)]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_2_Model_Binary_from_directory_balanced.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_2_Model_Binary_from_directory_balanced.ipynb)) with a low proportion of false negatives (which in this particular case would be worse than false positives - *i.e. it is better to treat a patient with no pneumonia that leave a sick patient with no treatment*), there was quite a bit of overfitting, despite extensive hypertuning.
-- For that reason it was decided to try to apply [Transfer Learning]([https://machinelearningmastery.com/transfer-learning-for-deep-learning/](https://machinelearningmastery.com/transfer-learning-for-deep-learning/)) techniques to the problem. Layers of the pretrained [VGG-19]([http://www.robots.ox.ac.uk/~vgg/](http://www.robots.ox.ac.uk/~vgg/)) network were used, combined with self-added layer in following the scheme below.
-- IMAGEN DE VGG19
+    
+A lot of parameter hypertuning was performed throughout the process, although the most relevant to the final results were the addition of dropout layers, which dramatically decreased overfitting and the selection of the [softmax](https://stats.stackexchange.com/a/410112) function on the output layer (the initial output function chosen was the sigmoid).
+
+Although satisfying results are yielded by this model [(around 90% accuracy and F1-score)](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4%20Model%20Training/4_2_Model_Binary_from_directory_balanced.ipynb) with a low proportion of false negatives (which in this particular case would be worse than false positives - *i.e. it is better to treat a patient with no pneumonia that leave a sick patient with no treatment*), there was quite a bit of overfitting, despite extensive hypertuning.
+ 
+For that reason it was decided to try to apply [Transfer Learning]([https://machinelearningmastery.com/transfer-learning-for-deep-learning/](https://machinelearningmastery.com/transfer-learning-for-deep-learning/)) techniques to the problem. Layers of the pretrained [VGG-19]([http://www.robots.ox.ac.uk/~vgg/](http://www.robots.ox.ac.uk/~vgg/)) network were used, combined with self-added layer in following the scheme below.
+
+---------------- IMAGE  ------------------------------
+
 - Summary of the most important parameters used:
     - Activation functions:
         - ReLU.
@@ -140,12 +152,12 @@ Initially, the three-category approach was decided, because the unbalance was no
     - Loss function: categorical cross-entropy.
     - Optimizer: SGD
     - Learning rate: 0.001
-- Same as we did before, parameter hypertuning was carried out, achieving the following [results]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_4_Model_Binary_Transfer_VGG19_7_epochs.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_4_Model_Binary_Transfer_VGG19_7_epochs.ipynb)) after 7 epochs, with no overfitting:
-    - results
-- Afterwards, the model was tested both with images from the Test subset and with real-life X-rays downloaded from Google, as demonstrated in Steps [5_1]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_2_load_model_predict.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_2_load_model_predict.ipynb)) and [5_2]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_4_load_model_predict.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_4_load_model_predict.ipynb)).
 
+Same as we did before, parameter hypertuning was carried out, achieving the following [results](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4%20Model%20Training/4_4_Model_Binary_Transfer_VGG19_7_epochs.ipynb) after 7 epochs, with no overfitting:
 
-
+---------------------- RESULTS --------------------------
+    
+Afterwards, the model was tested both with images from the Test subset and with real-life X-rays downloaded from Google, as demonstrated in Steps [5_2](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5%20Testing/5_2_load_model_predict.ipynb) and [5_4](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5%20Testing/5_4_load_model_predict.ipynb).
 
 ## Conclusions
 - We parted from a relatively clean dataset, and added some information extracted from DICOM tags.
