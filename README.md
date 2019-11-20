@@ -2,10 +2,6 @@
 **Final Project** | Dani Eiroa | **IH BCN Data Analytics PT 2019**
 
 ## Overview
-<p align="center">
-  <img src="https://prod-images-static.radiopaedia.org/images/1371188/24a32cc68436686e6b1852a00b57d4_jumbo.jpg" width="300">
-</p>
-
 A pneumonia is an acute infection of the lung and is characterized by the appearance of fever and respiratory symptoms, together with the presence of lung opacities on Chest-X-Rays (CXR).
 
 According to the Spanish Society or Radiology (SERAM), there are no reliable data on the number of (CXR) not reported in Spain, although there is a widespread conviction that, with exceptions, radiology services have never reported 100% of them. There are hospitals that, in fact, have stopped reporting CXR, as the workload has been inclined towards the reporting of more complicated techniques, such as CT and MRI.
@@ -75,17 +71,77 @@ Also, after some setbacks described below, a third notebook doing the same proce
 Throughout the process, a few `.csv`files were generated, to keep record of the files belonging to the different subsets. They are stored in the [`/data`](https://github.com/EiroaMD/final_project_IH_pneumonia/tree/master/data/csv) folder of the github repository.
 
 The heft of the files was stored on a Google Cloud virtual machine with GPUs, where the  model training was carried out.
+## Data Analysis
+### **Data Exploration and Visualization**
+An Exploratory Data Analysis was executed. Overall, data was clean and tidy. There were no NaNs and only five outliers in the only numerical variable present (age). After exploring the ages of the outliers (around 150 years old) and their CXRs, they were corrected by subtracting 100 years.
+
+Analysis of the value counts of the different categorical variables was done. Special attention was given to the possible target variables, the binary (target) and the ternary (class). There are two possible classifications of the X-Rays: normal|pneumonia and normal|not-normal-not-pneumonia|pneumonia. The image below shows that any of the two possible classifications yields unbalanced data, which was a pain point during the whole process.
+
+------------------ IMAGE  --------------------------
+
+Age was also plotted by grouping subjects depending on the target variable. 
+
+
+------------------ IMAGE  --------------------------
+
+
+Statistical analysis was carried out to check if the difference of mean age was significant:
+For the binary target - **Welch's t-test**:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{pneumonia}" title="\large H0: \bar{x} ^{normal} = \bar{x} ^{pneumonia}" /></a>
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H1:&space;\bar{x}&space;^{normal}&space;\neq&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H1:&space;\bar{x}&space;^{normal}&space;\neq&space;\bar{x}&space;^{pneumonia}" title="\large H1: \bar{x} ^{normal} \neq \bar{x} ^{pneumonia}" /></a>
 
+p-value of . H0 is rejected. We can't conclude that there are no differences between mean age of people with pneumonia, compared to healthy subjects.
+
+For the Ternary target - **ANOVA**:
+
 <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{nnnp}&space;=&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{nnnp}&space;=&space;\bar{x}&space;^{pneumonia}" title="\large H0: \bar{x} ^{normal} = \bar{x} ^{nnnp} = \bar{x} ^{pneumonia}" /></a>
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H1:&space;Means\hspace{2mm}&space;are\hspace{2mm}&space;not\hspace{2mm}&space;all\hspace{2mm}&space;equal." target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H1:&space;Means\hspace{2mm}&space;are\hspace{2mm}&space;not\hspace{2mm}&space;all\hspace{2mm}&space;equal." title="\large H1: Means\hspace{2mm} are\hspace{2mm} not\hspace{2mm} all\hspace{2mm} equal." /></a>
 
-## Data Analysis
-Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to
+p-value of . H0 is rejected. We can't conclude that there are no differences between mean age of people with pneumonia, compared with the other two groups.
+
+Initially, the three-category approach was decided, because the unbalance was not as big as with the binary approach, but a good result couldn't be achieved, the accuracy was not bad, but the rest of the metrics did not satisfy our standards and the model overfitted widely, so finally a binary classification with undersampling of the normal.
+
+**In brief**, we ended up with a total of 12024 images (6012 normal - 6012 pneumonia) and a dataframe with a shape of (12024, 12), as well as three subsets of it (train, validation, and test).
+
+### **Model Training and Evaluation**
+
+- After some research on the matter, we came to the conclusion that the best models for image classification tasks are [Convolutional Neural Networks (CNN)]([https://towardsdatascience.com/convolutional-neural-network-17fb77e76c05](https://towardsdatascience.com/convolutional-neural-network-17fb77e76c05))
+- Briefly, a CNN consists on an input, layers of filters that apply mathematical operations to the pixel values of the image (convolution and pooling) and  a cluster of fully connected or dense layers on the end of the network. This layers bound together produce an output, that in our cases is a category: normal or pneumonia.
+- Before feeding the images to the CNN, they had to be preprocessed using the `ImageDataGenerator` function from keras.
+- Initially a CNN was created from scratch following the scheme below:
+- IMAGEN DE MI CNN
+- Summary of the most important parameters used:
+    - Activation functions:
+        - ReLU.
+        - Softmax for output layer.
+    - Dropout:
+        - A 20% Dropout was applied after the second convolution layer and after each fully conected layer.
+    - Loss function: binary cross-entropy.
+    - Optimizer: RMSProp
+    - Learning rate: 0.001
+- A lot of parameter hypertuning was performed throughout the process, although the most relevant to the final results were the addition of dropout layers, which dramatically decreased overfitting and the selection of the [softmax]([https://stats.stackexchange.com/a/410112](https://stats.stackexchange.com/a/410112)) function on the output layer (the initial output function chosen was the sigmoid).
+- Although satisfying results are yielded by this model [(around 90% accuracy and F1-score)]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_2_Model_Binary_from_directory_balanced.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_2_Model_Binary_from_directory_balanced.ipynb)) with a low proportion of false negatives (which in this particular case would be worse than false positives - *i.e. it is better to treat a patient with no pneumonia that leave a sick patient with no treatment*), there was quite a bit of overfitting, despite extensive hypertuning.
+- For that reason it was decided to try to apply [Transfer Learning]([https://machinelearningmastery.com/transfer-learning-for-deep-learning/](https://machinelearningmastery.com/transfer-learning-for-deep-learning/)) techniques to the problem. Layers of the pretrained [VGG-19]([http://www.robots.ox.ac.uk/~vgg/](http://www.robots.ox.ac.uk/~vgg/)) network were used, combined with self-added layer in following the scheme below.
+- IMAGEN DE VGG19
+- Summary of the most important parameters used:
+    - Activation functions:
+        - ReLU.
+        - Softmax for output layer.
+    - Dropout:
+        - A 40% Dropout was applied after the first fully connected layer and an additional 20% after the second one.
+    - Loss function: categorical cross-entropy.
+    - Optimizer: SGD
+    - Learning rate: 0.001
+- Same as we did before, parameter hypertuning was carried out, achieving the following [results]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_4_Model_Binary_Transfer_VGG19_7_epochs.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4_4_Model_Binary_Transfer_VGG19_7_epochs.ipynb)) after 7 epochs, with no overfitting:
+    - results
+- Afterwards, the model was tested both with images from the Test subset and with real-life X-rays downloaded from Google, as demonstrated in Steps [5_1]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_2_load_model_predict.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_2_load_model_predict.ipynb)) and [5_2]([https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_4_load_model_predict.ipynb](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5_4_load_model_predict.ipynb)).
+
+
+
+
 ## Conclusions
 - We parted from a relatively clean dataset, and added some information extracted from DICOM tags.
 - Although clean and tidy, the data presented a problem of imbalance, with a relatively low number of pneumonia images (6012/26684).
