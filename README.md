@@ -176,7 +176,6 @@ Afterwards, the model was tested both with images from the Test subset and with 
 - A CNN was built from scratch with relatively good performance (f1-score of 0.89), and a low number of false negatives, which in this particular case (a person with pneumonia leaving the hospital without treatment)
 - Furthermore, with techniques of transfer-learning, another CNN was built and trained, achieving better metrics (f1-score of 0.92), and minimizing the overfitting.
 ## Problems - Setbacks
-<u>some text</u>
 The main pain points throughout the process were:
 - Dealing with unbalance: after trying to solve the problem with the unbalanced raw data and discarding the idea of oversampling, as we are dealing with medical images, I finally decided to do an undersampling of the normal images to balance both classes.
     - **Learning:** when dealing with classification problems, better quality than quantity. From now on, I'd rather have a small good, balanced dataset than a big one that I have to undersample anyway.
