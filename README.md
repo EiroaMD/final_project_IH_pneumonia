@@ -87,7 +87,69 @@ The heft of the files was stored on a Google Cloud virtual machine with GPUs, wh
 ## Data Analysis
 Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to
 ## Conclusions
-Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to
+- We parted from a relatively clean dataset, and added some information extracted from DICOM tags.
+- Although clean and tidy, the data presented a problem of imbalance, with a relatively low number of pneumonia images (6012/26684).
+- There is a slight difference in terms of age, between subjects that have a normal X-Ray and subjects with pneumonia. That difference is statistically significant.
+- After an iterative process, the imbalance was managed by undersampling.
+- A CNN was built from scratch with relatively good performance (f1-score of 0.89), and a low number of false negatives, which in this particular case (a person with pneumonia leaving the hospital without treatment)
+- Furthermore, with techniques of transfer-learning, another CNN was built and trained, achieving better metrics (f1-score of 0.92), and minimizing the overfitting.
 ## Problems - Setbacks
-Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to
+<u>some text</u>
+The main pain points throughout the process were:
+- Dealing with unbalance: after trying to solve the problem with the unbalanced raw data and discarding the idea of oversampling, as we are dealing with medical images, I finally decided to do an undersampling of the normal images to balance both classes.
+    - **Learning:** when dealing with classification problems, better quality than quantity. From now on, I'd rather have a small good, balanced dataset than a big one that I have to undersample anyway.
+- DICOM: I learnt the hard way that `.dcm` files could not be fed to a CNN. I used some libraries (see "Tools") to convert and move images using Python.
+    - **Learning:** DICOM is a very versatile format and you can do a lot of file management just by using Python.
+- Accuracy is not everything. Actually, it's nothing: first time I trained the CNN, with unbalanced binary classes, I got an accuracy of almost 75%. It turned out that the CNN classified all X-rays as normal (75% of the train image set was normal).
+    - **Learning:** looking at all the metrics is vital, as they provide different information and help to identify problems within the model.
+- Overfitting: it never ceases to amaze me the difficulty of adequately dealing and correcting overfitting.
+    - **Learning:** hypertune and iterate until you die.
+## Tools:
+**Environment**
+- Google Cloud Platform Virtual Machine
+    - 8 cores
+    - 2 NVidia Tesla K80
+
+**Libraries**
+- **Numpy**
+- **Pandas**
+- **File management:** os, zipfile, shutil.
+- **Image manipulation:** PyDicom, OpenCV, scikit-image, imutils.
+- **Visualization:** Matplotlib, Seaborn.
+- **Neural Networks:** TensorFlow|Keras.
+- **Statistical Analysis:** SciPy Stats.
+- **Metrics:** scikit-learn.
 ## References
+[https://web.stanford.edu/class/cs231a/lectures/intro_cnn.pdf](https://web.stanford.edu/class/cs231a/lectures/intro_cnn.pdf)
+
+[https://towardsdatascience.com/simply-deep-learning-an-effortless-introduction-45591a1c4abb](https://towardsdatascience.com/simply-deep-learning-an-effortless-introduction-45591a1c4abb)
+
+[https://towardsdatascience.com/basics-of-image-classification-with-keras-43779a299c8b](https://towardsdatascience.com/basics-of-image-classification-with-keras-43779a299c8b)
+
+[https://developers.google.com/machine-learning/practica/image-classification](https://developers.google.com/machine-learning/practica/image-classification?authuser=2)
+
+[https://www.freecodecamp.org/news/how-to-build-the-best-image-classifier-3c72010b3d55/](https://www.freecodecamp.org/news/how-to-build-the-best-image-classifier-3c72010b3d55/)
+
+[https://medium.com/merantix/deep-learning-from-natural-to-medical-images-74827bf51d6b](https://medium.com/merantix/deep-learning-from-natural-to-medical-images-74827bf51d6b)
+
+[https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52](https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52)
+
+[https://thispointer.com/python-how-to-move-files-and-directories/](https://thispointer.com/python-how-to-move-files-and-directories/)
+
+[https://arxiv.org/abs/1409.1556](https://arxiv.org/abs/1409.1556)
+
+[https://towardsdatascience.com/neural-style-transfer-4d7c8138e7f6](https://towardsdatascience.com/neural-style-transfer-4d7c8138e7f6)
+
+[https://medium.com/@vijayabhaskar96/multi-label-image-classification-tutorial-with-keras-imagedatagenerator-cd541f8eaf24](https://medium.com/@vijayabhaskar96/multi-label-image-classification-tutorial-with-keras-imagedatagenerator-cd541f8eaf24)
+
+[https://towardsdatascience.com/transfer-learning-in-tensorflow-9e4f7eae3bb4](https://towardsdatascience.com/transfer-learning-in-tensorflow-9e4f7eae3bb4)
+
+[https://marubon-ds.blogspot.com/2017/09/vgg-fine-tuning-model.html](https://marubon-ds.blogspot.com/2017/09/vgg-fine-tuning-model.html)
+
+[https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/](https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/)
+
+[https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a](https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a)
+
+[https://machinelearningmastery.com/how-to-calculate-precision-recall-f1-and-more-for-deep-learning-models/](https://machinelearningmastery.com/how-to-calculate-precision-recall-f1-and-more-for-deep-learning-models/)
+
+[https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
