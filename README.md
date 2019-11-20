@@ -133,9 +133,6 @@ After some research on the matter, we came to the conclusion that the best model
 Briefly, a CNN consists on an input, layers of filters that apply mathematical operations to the pixel values of the image (convolution and pooling) and  a cluster of fully connected or dense layers on the end of the network. This layers bound together produce an output, that in our cases is a category: normal or pneumonia.
 
 Before feeding the images to the CNN, they had to be preprocessed using the `ImageDataGenerator` function from keras.
-Initially a CNN was created from scratch following the scheme below:
-
----------------- IMAGE  ------------------------------
 
 - Summary of the most important parameters used:
     - Activation functions:
@@ -151,9 +148,7 @@ A lot of parameter hypertuning was performed throughout the process, although th
 
 Although satisfying results are yielded by this model [(around 90% accuracy and F1-score)](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4%20Model%20Training/4_2_Model_Binary_from_directory_balanced.ipynb) with a low proportion of false negatives (which in this particular case would be worse than false positives - *i.e. it is better to treat a patient with no pneumonia that leave a sick patient with no treatment*), there was quite a bit of overfitting, despite extensive hypertuning.
  
-For that reason it was decided to try to apply [Transfer Learning]([https://machinelearningmastery.com/transfer-learning-for-deep-learning/](https://machinelearningmastery.com/transfer-learning-for-deep-learning/)) techniques to the problem. Layers of the pretrained [VGG-19]([http://www.robots.ox.ac.uk/~vgg/](http://www.robots.ox.ac.uk/~vgg/)) network were used, combined with self-added layer in following the scheme below.
-
----------------- IMAGE  ------------------------------
+For that reason it was decided to try to apply [Transfer Learning]([https://machinelearningmastery.com/transfer-learning-for-deep-learning/](https://machinelearningmastery.com/transfer-learning-for-deep-learning/)) techniques to the problem. Layers of the pretrained [VGG-19]([http://www.robots.ox.ac.uk/~vgg/](http://www.robots.ox.ac.uk/~vgg/)) network were used, combined with self-added fully connected layers.
 
 - Summary of the most important parameters used:
     - Activation functions:
