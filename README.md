@@ -87,21 +87,21 @@ Age was also plotted by grouping subjects depending on the target variable.
 
 Statistical analysis was carried out to check if the difference of mean age was significant:
 
-For the binary target - **Welch's t-test**:
+  - For the binary target - **Welch's t-test**:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{pneumonia}" title="\large H0: \bar{x} ^{normal} = \bar{x} ^{pneumonia}" /></a>
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{pneumonia}" title="\large H0: \bar{x} ^{normal} = \bar{x} ^{pneumonia}" /></a>
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H1:&space;\bar{x}&space;^{normal}&space;\neq&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H1:&space;\bar{x}&space;^{normal}&space;\neq&space;\bar{x}&space;^{pneumonia}" title="\large H1: \bar{x} ^{normal} \neq \bar{x} ^{pneumonia}" /></a>
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H1:&space;\bar{x}&space;^{normal}&space;\neq&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H1:&space;\bar{x}&space;^{normal}&space;\neq&space;\bar{x}&space;^{pneumonia}" title="\large H1: \bar{x} ^{normal} \neq \bar{x} ^{pneumonia}" /></a>
 
-p-value of 3.27e-13. H0 is rejected. We can't conclude that there are no differences between mean age of people with pneumonia, compared to healthy subjects.
+    - p-value of 3.27e-13. H0 is rejected. We can't conclude that there are no differences between mean age of people with pneumonia, compared to healthy subjects.
 
-For the Ternary target - **ANOVA**:
+  - For the Ternary target - **ANOVA**:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{nnnp}&space;=&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{nnnp}&space;=&space;\bar{x}&space;^{pneumonia}" title="\large H0: \bar{x} ^{normal} = \bar{x} ^{nnnp} = \bar{x} ^{pneumonia}" /></a>
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{nnnp}&space;=&space;\bar{x}&space;^{pneumonia}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H0:&space;\bar{x}&space;^{normal}&space;=&space;\bar{x}&space;^{nnnp}&space;=&space;\bar{x}&space;^{pneumonia}" title="\large H0: \bar{x} ^{normal} = \bar{x} ^{nnnp} = \bar{x} ^{pneumonia}" /></a>
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H1:&space;Means\hspace{2mm}&space;are\hspace{2mm}&space;not\hspace{2mm}&space;all\hspace{2mm}&space;equal." target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H1:&space;Means\hspace{2mm}&space;are\hspace{2mm}&space;not\hspace{2mm}&space;all\hspace{2mm}&space;equal." title="\large H1: Means\hspace{2mm} are\hspace{2mm} not\hspace{2mm} all\hspace{2mm} equal." /></a>
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;H1:&space;Means\hspace{2mm}&space;are\hspace{2mm}&space;not\hspace{2mm}&space;all\hspace{2mm}&space;equal." target="_blank"><img src="https://latex.codecogs.com/gif.latex?\large&space;H1:&space;Means\hspace{2mm}&space;are\hspace{2mm}&space;not\hspace{2mm}&space;all\hspace{2mm}&space;equal." title="\large H1: Means\hspace{2mm} are\hspace{2mm} not\hspace{2mm} all\hspace{2mm} equal." /></a>
 
-p-value of 5.82e-90. H0 is rejected. We can't conclude that there are no differences between mean age of people with pneumonia, compared with the other two groups.
+    - p-value of 5.82e-90. H0 is rejected. We can't conclude that there are no differences between mean age of people with pneumonia, compared with the other two groups.
 
 Initially, the three-category approach was decided, because the unbalance was not as big as with the binary approach, but a good result couldn't be achieved, the accuracy was not bad, but the rest of the metrics did not satisfy our standards and the model overfitted widely, so finally a binary classification with undersampling of the normal.
 
