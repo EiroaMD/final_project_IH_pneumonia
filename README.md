@@ -8,6 +8,13 @@ According to the Spanish Society or Radiology (SERAM), there are no reliable dat
 
 Throughout the process described below, we aim to develop a tool that classifies a given CXR in one of this two classes: Normal and Pneumonia.
 
+### Contents:
+  - [Data Preparation](#data-preparation)
+  - [Data Analysis](#data-analysis)
+  - [Conclusions](#conclusions)
+  - [Tools](#tools)
+  - [References](#references)
+
 ## Data Preparation
 The dataset is comprised of a total 26684 Chest X-Rays (CXR), some of them of patients affected by pneumonia and others with no pneumonia.
 
