@@ -1,4 +1,4 @@
-# :hospital: Pneumonia.
+# :hospital: |Pneumonia| :hospital:
 **Final Project** | Dani Eiroa | **IH BCN Data Analytics PT 2019**
 
 ## Overview
