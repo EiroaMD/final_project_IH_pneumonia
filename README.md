@@ -10,8 +10,13 @@ Throughout the process described below, we aim to develop a tool that classifies
 
 ### Contents:
   - [Data Preparation](#data-preparation)
+    - [Data Ingestion](#data-ingestion)
+    - [Data Wrangling and Cleaning](#data-wrangling-and-cleaning)
   - [Data Analysis](#data-analysis)
+    - [Data Exploration and Visualization](#data-exploration-and-visualization)
+    - [Model Training and Evaluation](#model-training-and-evaluation)
   - [Conclusions](#conclusions)
+  - [Problems - Setbacks](#problems---setbacks)
   - [Tools](#tools)
   - [References](#references)
 
