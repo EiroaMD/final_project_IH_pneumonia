@@ -90,7 +90,7 @@ An Exploratory Data Analysis was executed. Overall, data was clean and tidy. The
 Analysis of the value counts of the different categorical variables was done. Special attention was given to the possible target variables, the binary (target) and the ternary (class). There are two possible classifications of the X-Rays: normal|pneumonia and normal|not-normal-not-pneumonia|pneumonia. The image below shows that any of the two possible classifications yields unbalanced data, which was a pain point during the whole process.
 
 <p align="center">
-  <img width="800" height="400" src="https://drive.google.com/uc?export=view&id=1vXm_AtpwSNd-zpmbtTiCnTg_XI0NmcyQ">
+  <img width="800" height="400" src="https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/6%20Images/target.png?raw=true">
 </p>
 
 Age was also plotted by grouping subjects depending on the target variable. 
