@@ -96,11 +96,11 @@ Analysis of the value counts of the different categorical variables was done. Sp
 Age was also plotted by grouping subjects depending on the target variable. 
 
 <p align="center">
-  <img width="500" height="250" src="https://drive.google.com/uc?export=view&id=1e_Q0hejM5nRRxh7hpMVopp16jHhZsR5C">
+  <img width="500" height="250" src="https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/6%20Images/age_2.png?raw=true">
 </p>
 
 <p align="center">
-  <img width="500" height="250" src="https://drive.google.com/uc?export=view&id=1o7XznBfngIvAnYhIKGXkwPdGhgf7wqnV">
+  <img width="500" height="250" src="https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/6%20Images/age_3.png?raw=true">
 </p>
 
 
@@ -163,7 +163,7 @@ For that reason it was decided to try to apply [Transfer Learning]([https://mach
 Same as we did before, parameter hypertuning was carried out, achieving the following [results](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/4%20Model%20Training/4_4_Model_Binary_Transfer_VGG19_7_epochs.ipynb) after 7 epochs, with no overfitting:
 
 <p align="center">
-  <img width="600" height="400" src="https://drive.google.com/uc?export=view&id=1QZ-yYfB-b_mDl5F6fklU7hreSaKrIaH4">
+  <img width="600" height="400" src="https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/6%20Images/results.png?raw=true">
 </p>
     
 Afterwards, the model was tested both with images from the Test subset and with real-life X-rays downloaded from Google, as demonstrated in Steps [5_2](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5%20Testing/5_2_load_model_predict.ipynb) and [5_4](https://github.com/EiroaMD/final_project_IH_pneumonia/blob/master/5%20Testing/5_4_load_model_predict.ipynb).
